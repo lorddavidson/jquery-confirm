@@ -1,5 +1,5 @@
 /*!
- * jquery-confirm v3.3.4 (http://craftpip.github.io/jquery-confirm/)
+ * jquery-confirm v3.4.0 (http://craftpip.github.io/jquery-confirm/)
  * Author: Boniface Pereira
  * Website: www.craftpip.com
  * Contact: hey@craftpip.com
@@ -357,7 +357,7 @@
             theme = theme.split(',');
             $.each(theme, function(k, a){
                 if(a.indexOf(that._themePrefix) === -1)
-                    theme[k] = that._themePrefix + $.trim(a);
+                    theme[k] = that._themePrefix + a.trim();
             });
             this.themeParsed = theme.join(' ').toLowerCase();
         },
@@ -368,7 +368,7 @@
             var that = this;
             $.each(animation, function(k, a){
                 if(a.indexOf(that._bgDismissPrefix) === -1)
-                    animation[k] = that._bgDismissPrefix + $.trim(a);
+                    animation[k] = that._bgDismissPrefix + a.trim();
             });
             this.backgroundDismissAnimationParsed = animation.join(' ').toLowerCase();
         },
@@ -385,7 +385,7 @@
             var that = this;
             $.each(animations, function(k, a){
                 if(a.indexOf(that._animationPrefix) === -1)
-                    animations[k] = that._animationPrefix + $.trim(a);
+                    animations[k] = that._animationPrefix + a.trim();
             });
             var a_string = animations.join(' ').toLowerCase();
             if(which === 'o')
@@ -591,7 +591,7 @@
             var that = this;
             this.boxClicked = false;
 
-            this.$scrollPane.click(function(e){ // Ignore propagated clicks
+            this.$scrollPane.on('click', function(e){ // Ignore propagated clicks
                 if(!that.boxClicked){ // Background clicked
                     /*
                      If backgroundDismiss is a function and its return value is truthy
@@ -628,7 +628,7 @@
                 that.boxClicked = false;
             });
 
-            this.$jconfirmBox.click(function(e){
+            this.$jconfirmBox.on('click', function(e){
                 that.boxClicked = true;
             });
 
@@ -696,7 +696,7 @@
                     .addClass(that.buttons[key].btnClass)
                     .prop('disabled', that.buttons[key].isDisabled)
                     .css('display', that.buttons[key].isHidden ? 'none' : '')
-                    .click(function(e){
+                    .on('click', function(e){
                         e.preventDefault();
                         var res = that.buttons[key].action.apply(that, [that.buttons[key]]);
                         that.onAction.apply(that, [key, that.buttons[key]]);
@@ -754,7 +754,7 @@
                     this.$closeIcon.html(closeHtml);
                 }
 
-                this.$closeIcon.click(function(e){
+                this.$closeIcon.on('click', function(e){
                     e.preventDefault();
 
                     var buttonName = false;
@@ -1071,14 +1071,14 @@
             /*
              unbind the window resize & keyup event.
              */
-            $(window).unbind('resize.' + this._id);
-            $(window).unbind('keyup.' + this._id);
-            $(window).unbind('jcKeyDown.' + this._id);
+            $(window).off('resize.' + this._id);
+            $(window).off('keyup.' + this._id);
+            $(window).off('jcKeyDown.' + this._id);
 
             if(this.draggable){
-                $(window).unbind('mousemove.' + this._id);
-                $(window).unbind('mouseup.' + this._id);
-                this.$titleContainer.unbind('mousedown');
+                $(window).off('mousemove.' + this._id);
+                $(window).off('mouseup.' + this._id);
+                this.$titleContainer.off('mousedown');
             }
 
             that.$el.removeClass(that.loadedClass);
